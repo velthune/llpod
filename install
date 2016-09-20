@@ -1,0 +1,5 @@
+# llpod installer
+
+chmod +x llpod
+sudo cp llpod /usr/local/bin/
+echo "llpod installed\n"
