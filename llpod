@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Define variables
+
+PODFILE="Podfile.lock"
+DEPENDENCIES="DEPENDENCIES"
+IFS=$'\n'       # make newlines the only separator
+set -f
+
+# Define functions
+
+function listPods {         
+	for i in $(cat "$PODFILE"); do
+		if [[ $i == *"DEPENDENCIES"* ]]
+			then
+				break
+			else		
+  				echo "$i" | grep "^  -"
+  		fi
+	done
+	exit
+}
+
+function listDependencies {
+	readLine=false
+	for i in $(cat "$PODFILE"); do
+		if [[ $i == *"DEPENDENCIES"* ]]
+			then
+				readLine=true
+			else
+				if [[ $readLine == true ]]
+					then
+  						echo "$i" | grep "^  -"
+  				fi	
+  		fi
+	done
+	exit
+}
+
+function showInfo {
+	echo -e "Usage: \n\t$ llpod "
+	echo -e "\n\tCommand to list all installed pod.\n"
+	echo -e "Options: \n\t--d\t\tShow dependencies only.\n\t--help\t\tShow help."
+}
+
+function readParameters {
+
+	for parameter in $1
+	do
+  		case "$parameter" in
+  			"--d") listDependencies
+   			;;
+  	 		"--help") showInfo
+   			;;
+   			*) PODFILE="$parameter"
+   			;;
+		esac
+	done	
+}
+
+# Read parameters 
+
+readParameters $@
+
+# Check Podfile
+if [ -f "$PODFILE" ]
+  	then
+    		listPods
+	else
+		echo "Cannot find any podfile named" "\"""$PODFILE""\""
+		exit			
+fi
