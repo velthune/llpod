@@ -1,6 +1,6 @@
 #Installation
 
-git clone https://github.com/velthune/llpod.git && (cd llpod; ./install)
+	git clone https://github.com/velthune/llpod.git && (cd llpod; ./install)
 
 In order to verify installation success: 
 
