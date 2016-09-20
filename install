@@ -2,7 +2,7 @@
 
 chmod +x llpod
 sudo cp llpod /usr/local/bin/
-echo -e "llpod installed\n"
+echo -e "llpod installed"
 cd ..
 rm -rf llpod
 echo -e "Removed useless files."
