@@ -9,7 +9,7 @@ set -f
 
 # Define functions
 
-function listPods {         
+function listAll {         
 	for i in $(cat "$PODFILE"); do
 		if [[ $i == *"DEPENDENCIES"* ]]
 			then
@@ -21,7 +21,7 @@ function listPods {
 	exit
 }
 
-function listDependencies {
+function listPods {
 	readLine=false
 	for i in $(cat "$PODFILE"); do
 		if [[ $i == *"DEPENDENCIES"* ]]
@@ -39,19 +39,20 @@ function listDependencies {
 
 function showInfo {
 	echo -e "Usage: \n\t$ llpod "
-	echo -e "\n\tCommand to list all installed pod.\n"
-	echo -e "Options: \n\t--d\t\tShow dependencies only.\n\t--help\t\tShow help."
+	echo -e "\n\tCommand to list selected pod.\n"
+	echo -e "Options: \n\t--v\t\tShow all pods with all submodules.\n\t--help\t\tShow help."
 }
 
 function readParameters {
-
-	for parameter in $1
+	for parameter in $@
 	do
   		case "$parameter" in
-  			"--d") listDependencies
+  			"--v") listAll
    			;;
   	 		"--help") showInfo
    			;;
+   			*"--"*) echo "Option \""$parameter"\" unrecognized." && exit
+			;;
    			*) PODFILE="$parameter"
    			;;
 		esac
@@ -63,6 +64,7 @@ function readParameters {
 readParameters $@
 
 # Check Podfile
+
 if [ -f "$PODFILE" ]
   	then
     		listPods
