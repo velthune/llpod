@@ -1,5 +1,5 @@
-#Installation
-
+# Installation  
+ 
 	$ git clone https://github.com/velthune/llpod.git && (cd llpod; ./install)
 
 In order to verify installation success: 
@@ -8,7 +8,7 @@ In order to verify installation success:
 
 Notice that script will require sudo password: it is necessary in order to move script on '/usr/local/bin/'.
 
-#Usage 
+# Usage 
 
 Execute 'llpod' on your project directory:
 
